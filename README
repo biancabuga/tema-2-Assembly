@@ -1,0 +1,100 @@
+Buga Bianca Gabriela 321CD 
+
+Tema 2
+
+TASK 1
+    Functia remove_numbers primeste un vector de numere
+intregi si copiaza intr-un alt vector de numere intregi
+acele numere care NU sunt impare si care NU sunt puteri
+ale lui 2, adica pastreaza numerel pare care nu sunt 
+puteri ale lui 2 si numerele negative.
+esi = vectorul sursa
+ebx = lungimea vectorului sursa
+edi = vectorul destinatie
+edx = lungimea vectorului destinatie
+In .loop_start procesam fiecare element al vectorului
+sursa astfel:
+- avem practic un for care compara indexul curent 
+cu lungimea vectorului
+- daca e mai mare sau egal inseamna ca am procesat 
+toate elementele vectorului
+- verificam paritatea unui element luand ultimul bit
+din ultimul byte al elementului
+- test returneaza 1 daca numarul este impar si
+0 daca este par
+- daca numarul este impar trecem la urmatorule element,
+fara a-l adauga pe cel curent in vectrul destinatie
+- daca numarul este par, il comparam cu 0 si daca este
+mai mic sau egal, inseamna ca e de pastram si sarim 
+la label-ul pentru copiere
+- daca numarul nu este negativ, trebuie sa verificam 
+daca este putere a lui 2
+- punem ecx pe stiva pentru a nu-l pierde si pentru
+a-l folosi pe ecx ca sa prelucram termenul curent din
+vector
+- pentru a verifica daca un numar este putere a lui 2, 
+ne folosim de urmatoarea logica : stim ca daca un numar
+este putere a lui 2, atunci va avea un singur bit setat
+pe 1; daca scadem 1 din numar, atunci rezultatul va avea toti bitii de la dreapta acelui bit egali cu 1, iar bitul care era 1 devine 0; deci, test va produce
+0 daca numarul este putere a lui 2 si 1 daca nu este
+- daca numarul a trecut de toate verificarile este
+copiat in vectorul destinatie
+
+TASK2
+
+Subtask1
+    Functia verifica daca datele primite la intrare 
+sunt valide pe baza unor reguli prestabilite.
+Bazandu-ne pe structura de date pentru evenimente, 
+am definit offset-uri pentru fiecare parte dintr-un
+eveniment. In bucla pentru evenimente, initializam
+intai variabila valid cu 0, folosindu-ne de offsetul ei,
+adica la cati octeti distanta de inceputul evenimentului
+curent se afla variabila pentru validitate. In partea 
+inferioara a registrului eax, adica in ultimii 2 octeti, 
+luam din eveniment anul si verificam daca se afla intre 
+1990 si 2030. Daca nu respecta ambele conditii, trecem 
+la urmatorul eveniment. Daca respecta conditiile, 
+verificam daca luna se afla intre 1 si 12, etc. Pentru 
+a verifica daca luna are suficiente zile, trebuie sa
+comparam ziua evenimentului cu numarul de zile al lunii.
+Am definit un vector care cuprinde in ordine, numarul 
+zile al lunilor unui an si il vom accesa folosindu-ne
+de luna ca index. Daca am ajuns la capatul verificarilor, 
+inseamna ca evenimentul este valid si setam valid la 1.
+
+Subtask2
+    Programul foloseste 2 bucle imbricate pentru a sorta 
+evenimentele. Bucla .outer_loop foloseste indexul edx, 
+iar .inner_loop foloseste indexul edi. Sortarea foloseste 
+logica Bubble Sort: se compara evinement[edx] cu 
+eveniment[edi] unde edi incepe de la edx + 1.
+
+TASK 3
+
+Functia primeste ca date de intrare sirul original, 
+lungimea lui, adresa unui array in care va stoca 
+rezultatul si o adresa unde sa scrie cat de lung 
+va fi rezultatul. In bucla .loop_start, luam cate 
+trei caractere din sirul initial, le combina intr-un 
+numar de 24 de biti si apoi sparge acest numar in 
+bucati de cate 6 biti. Fiecare "bucata" este folosita 
+pentru a accesa caracterul corespunzator dintr-un array,
+iar aceste 4 caractere rezultate sunt scrie in array-ul 
+destinatie.
+
+TASK 4
+
+Fiecare functie primeste tabla de sudoku si indexul 
+elementului de verificat. Pentru a tine evidenta 
+cifrelor deja intalnite, fiecare functie aloca pe 
+stiva o structura de 9 octeti, ale carei campuri sunt 
+initializate cu 0 de functia init. Functia principala 
+itereaza prin cele 9 celule, calculand adresa fiecareia.
+Pentru fiecare cifra extrasa, verificam daca este 
+cuprinsa intre 1 si 9, o tranforma intr-un index si 
+daca e valida si nedublicata, o marcheaza cu 1 si 
+reseteaza flagul Carry, altfel il reseteaza. Verificam 
+daca acest flag este setat, si in caz afirmativ, 
+returnam 2 in eax, deoarece inseamna ca avem o eroare, 
+daca toate celulele sunt corecte, returneaza 1. 
